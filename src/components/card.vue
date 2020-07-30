@@ -17,7 +17,7 @@
 <script>
 export default {
   name: "card",
-  props: {}
+  props: ['bookdata'],
 }
 </script>
 

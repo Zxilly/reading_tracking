@@ -10,7 +10,7 @@
           <v-icon>mdi-book-multiple-outline</v-icon>
         </v-btn>
         <v-toolbar-title class="font-weight-light">
-          <span class="font-weight-bold">Reading</span> Tracking
+          <span class="font-weight-bold">Reading</span>Tracking
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn
@@ -51,35 +51,57 @@
           </v-list>
         </v-menu>
       </v-app-bar>
-      <v-container v-if="loginStates">
-        <v-row
-            v-for="n in 6/2"
-            :key="n"
-            :class="mb-6"
-        >
-          <v-col
-              v-for="k in n + 1"
-              :key="k"
-          >
-            <v-card
-                class="pa-2"
-                outlined
-                tile
-            >
-              {{ k }} of {{ n + 1 }}
-            </v-card>
-          </v-col>
-        </v-row>
+      <v-container v-if="loginStates&&!isfirst">
+        <card
+            :bookdata="bookdata"
+        />
       </v-container>
+      <template v-else-if="loginStates&&isfirst">
+        <addbook
+            :isfirst="isfirst"
+        />
+      </template>
+      <template v-else>
+        <login v-on:login="loginStates=true;login"/>
+      </template>
     </v-main>
   </v-app>
 </template>
 
 <script>
-//import card from '@/components/card.vue'
+
+//var apiurl = 'http://rt.api.learningman.top/api'
+
+var apiurl = 'http://127.0.0.1:4000/api'
+
+import Card from "@/components/card";
+import Login from "@/components/login";
+import Addbook from "@/components/addbook";
+
+import Cookies from "js-cookie";
+import axios from 'axios';
 
 export default {
   name: 'App',
+  created: function () {
+    if(this.checkCookie()){
+      this.loginStates = true;
+      this.username = Cookies.get('user')
+      this.getinfo()
+      //console.log(this.user)
+    }
+    else{
+      this.loginStates = false;
+    }
+  },
+  data:()=>{
+    return {
+      loginStates:false,
+      username:'',
+      isfirst:true,
+      bookdata:[],
+    }
+  },
   methods: {
     jumptoblog: () => {
       window.open('https://learningman.top', '_blank');
@@ -89,10 +111,36 @@ export default {
     },
     refresh: () => {
 
+    },
+    checkCookie:()=>{
+      return Cookies.get('user') != null;
+    },
+    login:()=>{
+      this.username = Cookies.get('user')
+      this.getinfo()
+    },
+    getinfo:function (){
+      var that = this
+      console.log('OK')
+      axios.get(apiurl,{
+        params:{
+          user:this.username
+        }
+      }).then(function (response){
+        if(response['code']===0){
+          that.isfirst=true
+        }
+        else if(response['code']===1){
+          that.isfirst=false
+          that.bookdata=response['data']
+        }
+      })
     }
   },
   components: {
-    //card
+    Addbook,
+    Card,
+    Login
   }
 }
 </script>
