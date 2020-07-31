@@ -59,6 +59,7 @@
       </v-container>
       <template v-else-if="loginStates&&isfirst">
         <addbook
+            v-show="isfirstshow"
             :isfirst="isfirst"
             :username="username"
             @showsnackbar="showSnackbar"
@@ -121,6 +122,7 @@ export default {
       loginStates: false,
       username: '',
       isfirst: true,
+      isfirstshow:false,
       bookdata: [],
       snackbar: {
         msg: '',
@@ -160,6 +162,7 @@ export default {
         if (response.data['code'] === 0) {
           console.log('code=0')
           that.isfirst = true
+          that.isfirstshow = true
         } else if (response.data['code'] === 1) {
           //console.log('code=1')
           that.isfirst = false
@@ -172,9 +175,9 @@ export default {
       this.snackbar.snackbarcolor = snackbar_arg.snackbarcolor
       this.snackbar.snackbar = true
     },
-    loginfinish:function (){
+    loginfinish: function () {
       this.login();
-      this.loginStates=true;
+      this.loginStates = true;
     }
   },
   components: {
