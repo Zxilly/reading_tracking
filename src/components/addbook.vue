@@ -58,25 +58,6 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-snackbar
-        v-model="snackbar"
-        :color="snackbarcolor"
-        top
-        dark
-    >
-      {{ msg }}
-
-      <template v-slot:action="{ attrs }">
-        <v-btn
-            dark
-            text
-            v-bind="attrs"
-            @click="snackbar = false"
-        >
-          关闭
-        </v-btn>
-      </template>
-    </v-snackbar>
   </div>
 </template>
 
@@ -90,9 +71,10 @@ export default {
   props: ['isfirst', 'username'],
   data() {
     return {
-      msg: '',
-      snackbar: false,
-      snackbarcolor: '',
+      snackbar:{
+        msg:'',
+        snackbarcolor:''
+      },
       progress: null,
       tip: '',
       isbn: '',
@@ -127,20 +109,20 @@ export default {
         }
       }).then(function (response) {
         if (response.data['code'] === 1) {
-          that.msg = response.data['msg'];
-          that.snackbarcolor = 'success';
+          that.snackbar.msg = response.data['msg'];
+          that.snackbar.snackbarcolor = 'success';
           //console.log(1)
-          that.snackbar = true
+          that.$emit('showsnackbar',that.snackbar)
           if (that.isfirst) {
             //console.log('notfirst')
             that.$emit('notfirst')
           }
         }
         if (response.data['code'] === 4 || response.data['code'] === 5) {
-          that.msg = response.data['msg'];
-          that.snackbarcolor = 'error';
+          that.snackbar.msg = response.data['msg'];
+          that.snackbar.snackbarcolor = 'error';
           //console.log(2)
-          that.snackbar = true
+          that.$emit('showsnackbar',that.snackbar)
         }
       })
     }
