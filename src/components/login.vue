@@ -46,11 +46,17 @@ export default {
   data() {
     return {
       username:'',
+      snackbar:{
+        msg:'',
+        snackbarcolor:'success'
+      },
     }
   },
   methods:{
     setCookie:function (){
       Cookies.set('user', this.username, { expires: 365 });
+      this.snackbar.msg=this.username+' 成功登录'
+      this.$emit('showsnackbar',this.snackbar)
       this.$emit('login');
     }
   }

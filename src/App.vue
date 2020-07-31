@@ -62,18 +62,34 @@
             :isfirst="isfirst"
             :username="username"
             @showsnackbar="showSnackbar"
-            v-on:notfirst="isfirst=false"
+            @notfirst="isfirst=false"
         />
       </template>
       <template v-else>
-        <login v-on:login="loginStates=true;login"/>
+        <login
+            @login="loginfinish"
+            @showsnackbar="showSnackbar"
+        />
       </template>
-      <snackbar
-          bottom
-          :msg="snackbar.msg"
-          :snackbar="snackbar.snackbar"
-          :snackbarcolor="snackbar.snackbarcolor"
-      />
+      <v-snackbar
+          v-model="snackbar.snackbar"
+          :color="snackbar.snackbarcolor"
+          top
+          dark
+      >
+        {{ snackbar.msg }}
+
+        <template v-slot:action="{ attrs }">
+          <v-btn
+              dark
+              text
+              v-bind="attrs"
+              @click="snackbar.snackbar = false"
+          >
+            关闭
+          </v-btn>
+        </template>
+      </v-snackbar>
     </v-main>
   </v-app>
 </template>
@@ -83,7 +99,6 @@
 import Card from "@/components/card";
 import Login from "@/components/login";
 import Addbook from "@/components/addbook";
-import Snackbar from "@/components/snackbar";
 
 import Cookies from "js-cookie";
 import axios from 'axios';
@@ -128,7 +143,7 @@ export default {
       return Cookies.get('user') != null;
     },
     login: function () {
-      //console.log(this.username)
+      console.log('login is on')
       this.username = Cookies.get('user')
       this.getinfo()
     },
@@ -143,7 +158,7 @@ export default {
         //console.log(response.data['code']===0)
         //console.log(typeof response.data['code'])
         if (response.data['code'] === 0) {
-          //console.log('code=0')
+          console.log('code=0')
           that.isfirst = true
         } else if (response.data['code'] === 1) {
           //console.log('code=1')
@@ -157,10 +172,12 @@ export default {
       this.snackbar.snackbarcolor = snackbar_arg.snackbarcolor
       this.snackbar.snackbar = true
     },
-
+    loginfinish:function (){
+      this.login();
+      this.loginStates=true;
+    }
   },
   components: {
-    Snackbar,
     Addbook,
     Card,
     Login

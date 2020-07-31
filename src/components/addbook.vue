@@ -122,6 +122,7 @@ export default {
           that.snackbar.msg = response.data['msg'];
           that.snackbar.snackbarcolor = 'error';
           //console.log(2)
+          //console.log(that.$parent.showSnackbar())
           that.$emit('showsnackbar',that.snackbar)
         }
       })
