@@ -54,11 +54,14 @@
       <v-container v-if="loginStates&&!isfirst">
         <card
             :bookdata="bookdata"
+            :username="username"
         />
       </v-container>
       <template v-else-if="loginStates&&isfirst">
         <addbook
             :isfirst="isfirst"
+            :username="username"
+            v-on:notfirst="isfirst=false"
         />
       </template>
       <template v-else>
@@ -70,10 +73,6 @@
 
 <script>
 
-//var apiurl = 'http://rt.api.learningman.top/api'
-
-var apiurl = 'http://127.0.0.1:4000/api'
-
 import Card from "@/components/card";
 import Login from "@/components/login";
 import Addbook from "@/components/addbook";
@@ -81,13 +80,14 @@ import Addbook from "@/components/addbook";
 import Cookies from "js-cookie";
 import axios from 'axios';
 
+var apiurl = 'http://localhost:4000/api'
+
 export default {
   name: 'App',
   created: function () {
     if(this.checkCookie()){
       this.loginStates = true;
-      this.username = Cookies.get('user')
-      this.getinfo()
+      this.login()
       //console.log(this.user)
     }
     else{
@@ -115,24 +115,29 @@ export default {
     checkCookie:()=>{
       return Cookies.get('user') != null;
     },
-    login:()=>{
+    login:function (){
+      //console.log(this.username)
       this.username = Cookies.get('user')
       this.getinfo()
     },
     getinfo:function (){
       var that = this
-      console.log('OK')
+      //console.log(this.username)
       axios.get(apiurl,{
         params:{
-          user:this.username
+          user:that.username
         }
       }).then(function (response){
-        if(response['code']===0){
+        console.log(response.data['code']===0)
+        //console.log(typeof response.data['code'])
+        if(response.data['code']===0){
+          console.log('code=0')
           that.isfirst=true
         }
-        else if(response['code']===1){
+        else if(response.data['code']===1){
+          console.log('code=1')
           that.isfirst=false
-          that.bookdata=response['data']
+          that.bookdata=response.data['data']
         }
       })
     }

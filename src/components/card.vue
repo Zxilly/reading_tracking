@@ -1,5 +1,5 @@
 <template>
-  <v-card class="d-inline-block mx-auto">
+  <v-card class="d-inline-block mx-auto mt-12">
     <v-container>
       <v-row justify="space-between">
         <v-col cols="auto">
@@ -17,7 +17,7 @@
 <script>
 export default {
   name: "card",
-  props: ['bookdata'],
+  props: ['bookdata','username'],
 }
 </script>
 
