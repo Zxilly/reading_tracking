@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <v-main id="a" class="grey lighten-5">
+    <v-main id="a" class="grey lighten-5" transition="fade-transition">
       <v-app-bar
           app
           dark
@@ -51,12 +51,12 @@
           </v-list>
         </v-menu>
       </v-app-bar>
-      <v-container v-if="loginStates&&!isfirst">
+      <template v-if="loginStates&&!isfirst">
         <card
             :bookdata="bookdata"
             :username="username"
         />
-      </v-container>
+      </template>
       <template v-else-if="loginStates&&isfirst">
         <addbook
             v-show="isfirstshow"
@@ -72,6 +72,7 @@
             @showsnackbar="showSnackbar"
         />
       </template>
+
       <v-snackbar
           v-model="snackbar.snackbar"
           :color="snackbar.snackbarcolor"
@@ -79,7 +80,6 @@
           dark
       >
         {{ snackbar.msg }}
-
         <template v-slot:action="{ attrs }">
           <v-btn
               dark
@@ -104,7 +104,7 @@ import Addbook from "@/components/addbook";
 import Cookies from "js-cookie";
 import axios from 'axios';
 
-var apiurl = 'http://localhost:4000/api'
+var apiurl = 'http://192.168.1.108:4000/api'
 
 export default {
   name: 'App',
@@ -122,7 +122,7 @@ export default {
       loginStates: false,
       username: '',
       isfirst: true,
-      isfirstshow:false,
+      isfirstshow: false,
       bookdata: [],
       snackbar: {
         msg: '',
@@ -145,7 +145,7 @@ export default {
       return Cookies.get('user') != null;
     },
     login: function () {
-      console.log('login is on')
+      //console.log('login is on')
       this.username = Cookies.get('user')
       this.getinfo()
     },
