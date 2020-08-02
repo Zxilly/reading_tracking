@@ -60,25 +60,25 @@
             </v-btn>
           </template>
           <v-list>
+            <template v-if="mobile"> <!--开发中，回头记得改-->
+              <udmobile
+                  :book="book"
+              />
+            </template>
+            <template v-else>
+              <uddesktop
+                :book="book"
+                />
+            </template>
+
             <v-list-item
-                @click="'console.log(1)'"
+                @click="'console.log(2)'"
             >
               <v-list-item-icon>
                 <v-icon>mdi-radar</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>更新进度</v-list-item-title>
-              </v-list-item-content>
-
-            </v-list-item>
-            <v-list-item
-                @click="'console.log(2)'"
-            >
-              <v-list-item-icon>
-                <v-icon>mdi-pencil</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>修改信息</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
             <v-divider/>
@@ -118,11 +118,16 @@
 
 <script>
 import {baseurl} from '@/config'
-//var baseurl = 'http://127.0.0.1:4000' //TODO:production fix
+
+import Udmobile from '@/components/updatedialog/udmobile'
+import Uddesktop from '@/components/updatedialog/uddesktop'
+
 export default {
   name: "bookcard",
+  components: {Uddesktop, Udmobile},
   props: ['username', 'book'],
   created:function (){
+    //console.log(this.mobile)
     if(this.book.page_total!==''){
       this.progress_value=this.book.progress/this.book.page_total*100
       //console.log(this.progress_value)

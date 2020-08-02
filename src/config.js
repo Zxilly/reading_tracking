@@ -1,4 +1,4 @@
-export const baseurl = 'http://127.0.0.1:4000';
+export const baseurl = 'http://192.168.1.108:4000';
 export const apiurl = baseurl+'/api';
 
 export default {}

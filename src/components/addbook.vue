@@ -34,7 +34,7 @@
                 label="阅读页数"
                 name="progress"
                 prepend-icon="mdi-progress-clock"
-                type="string"
+                type="text"
                 v-model="progress"
                 :rules="rules.progress"
             ></v-text-field>
