@@ -4,8 +4,7 @@
 
 <script>
 export default {
-  name: "snackbar",
-  props: ['snackbar','snackbarcolor','msg'],
+name: "mobile"
 }
 </script>
 

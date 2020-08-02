@@ -1,13 +1,11 @@
 <template>
   <v-col
-      sm="12"
+      cols="12"
       md="6"
       lg="4"
-      class="d-flex-inline justify-center"
   >
     <v-card
-        width="80%"
-
+        class="ma-md-4 ma-xs-2"
     >
       <div
           class="d-flex flex-no-wrap justify-space-between"
@@ -24,50 +22,93 @@
             />
           </div>
           <div>
-
+            <p
+                class="mb-0 pa-4">
+              <span
+                  class="blue--text text-h4 font-weight-medium">{{book.progress}}</span><span class=""> / </span>{{ book.page_total===''?'NaN':book.page_total }}</p>
           </div>
         </div>
         <v-sheet
             elevation="1"
             width="20%"
+            height="30%"
             color="lighten-4 grey"
-            class="pa-2 ma-4"
+            class="pa-2 ma-4 align-self-center d-none d-sm-flex"
         >
+
           <v-img
               :aspect-ratio="31/43"
-              src="http://127.0.0.1:4000/data/books/img/9787115390592.jpg"
+              :src="pic_url"
           />
         </v-sheet>
       </div>
+      <v-progress-linear
+          height="7px"
+          class="mt-1"
+          :value="progress_value"
+          :striped="!showprogress"
+      />
       <v-card-actions>
-        <v-btn text>Share</v-btn>
+        <v-menu transition="slide-x-transition" offset-x>
+          <template #activator="{ on, attrs }">
+            <v-btn
+                text
+                v-bind="attrs"
+                v-on="on"
+            >
+              EDIT
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+                @click="'console.log(1)'"
+            >
+              <v-list-item-icon>
+                <v-icon>mdi-radar</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>更新进度</v-list-item-title>
+              </v-list-item-content>
 
-        <v-btn
-            color="purple"
-            text
-        >
-          Explore
-        </v-btn>
+            </v-list-item>
+            <v-list-item
+                @click="'console.log(2)'"
+            >
+              <v-list-item-icon>
+                <v-icon>mdi-pencil</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>修改信息</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-divider/>
+            <v-list-item
+                @click="'console.log(3)'"
+            >
+              <v-list-item-icon>
+                <v-icon color="red darken-1">mdi-delete</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="red--text text--darken-1">删除书籍</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
 
         <v-spacer></v-spacer>
 
         <v-btn
             icon
-            @click="show = !show"
-        >
-          <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+            @click="showexpand = !showexpand"
+            v-if="book.tip!==''">
+          <v-icon>{{ showexpand ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
         </v-btn>
       </v-card-actions>
       <v-expand-transition>
-        <div v-show="show">
+        <div v-show="showexpand">
           <v-divider></v-divider>
-
-          <v-card-text>
-            I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for
-            sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey,
-            you
-            add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to
-            escape.
+          <v-card-text style="min-height: 80px">
+            {{book.tip}}
           </v-card-text>
         </div>
       </v-expand-transition>
@@ -76,13 +117,45 @@
 </template>
 
 <script>
+import {baseurl} from '@/config'
+//var baseurl = 'http://127.0.0.1:4000' //TODO:production fix
 export default {
   name: "bookcard",
   props: ['username', 'book'],
+  created:function (){
+    if(this.book.page_total!==''){
+      this.progress_value=this.book.progress/this.book.page_total*100
+      //console.log(this.progress_value)
+    }
+    else{
+      this.showprogress=false
+    }
+  },
   data() {
     return {
-      show: false,
+      showexpand: false,
+      showprogress: true,
+      progress_value:100,
     }
+  },
+  computed:{
+    pic_url:function (){
+      return baseurl+this.book.pic_url
+    },
+    mobile:function (){
+      return document.body.clientWidth<600
+    }
+  },
+  methods:{
+    updateinfo:function (){
+
+    },
+    updateprogress:function () {
+
+    },
+    deletecard:function () {
+
+    },
   }
 }
 </script>

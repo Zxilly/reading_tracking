@@ -18,8 +18,8 @@
         >
           <v-icon @click="refresh">mdi-refresh</v-icon>
         </v-btn>
-        <v-menu>
-          <template v-slot:activator="{ on, attrs }">
+        <v-menu min-width="10em">
+          <template #activator="{ on, attrs }">
             <v-btn
                 icon
                 v-bind="attrs"
@@ -28,7 +28,8 @@
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </template>
-          <v-list rounded>
+          <v-list
+          >
             <v-subheader>About Project</v-subheader>
             <v-list-item-group>
               <v-list-item @click="jumptoblog">
@@ -55,6 +56,7 @@
         <card
             :bookdata="bookdata"
             :username="username"
+            @refresh="refresh"
         />
       </template>
       <template v-else-if="loginStates&&isfirst">
@@ -104,11 +106,14 @@ import Addbook from "@/components/addbook";
 import Cookies from "js-cookie";
 import axios from 'axios';
 
-var apiurl = 'http://192.168.1.108:4000/api'
+import {apiurl} from '@/config'
+
+//var apiurl = 'http://192.168.1.108:4000/api'
 
 export default {
   name: 'App',
   created: function () {
+    //console.log(apiurl)
     if (this.checkCookie()) {
       this.loginStates = true;
       this.login()
@@ -138,9 +143,6 @@ export default {
     jumptogithub: () => {
       window.open('https://github.com', '_blank');
     },
-    refresh: () => {
-
-    },
     checkCookie: () => {
       return Cookies.get('user') != null;
     },
@@ -160,7 +162,7 @@ export default {
         //console.log(response.data['code']===0)
         //console.log(typeof response.data['code'])
         if (response.data['code'] === 0) {
-          console.log('code=0')
+          //console.log('code=0')
           that.isfirst = true
           that.isfirstshow = true
         } else if (response.data['code'] === 1) {
@@ -179,6 +181,9 @@ export default {
     loginfinish: function () {
       this.login();
       this.loginStates = true;
+    },
+    refresh: function (){
+      this.getinfo()
     }
   },
   components: {

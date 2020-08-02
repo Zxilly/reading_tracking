@@ -44,11 +44,11 @@
             <p
                 class="mb-0 font-weight-medium float-right"
             >
-                      <span
-                          class="font-weight-bold text-h2 blue--text text--darken-3 mr-n2"
-                      >
-                        370
-                      </span>
+              <span
+                  class="font-weight-bold text-h2 blue--text text--darken-3 mr-n2"
+              >
+                370
+              </span>
               <span
                   class="text-h4"
               >/</span>
@@ -67,7 +67,7 @@
 
 <script>
 export default {
-name: "card.old"
+  name: "card.old"
 }
 </script>
 

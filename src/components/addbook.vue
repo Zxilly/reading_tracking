@@ -62,9 +62,9 @@
 </template>
 
 <script>
-var apiurl = 'http://192.168.1.108:4000/api' //TODO:production will fix
-
+//var apiurl = 'http://192.168.1.108:4000/api' //TODO:production will fix
 import axios from 'axios'
+import {apiurl} from "@/config";
 
 export default {
   name: "add_book",
