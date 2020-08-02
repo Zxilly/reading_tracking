@@ -166,7 +166,8 @@ export default {
         } else if (response.data['code'] === 1) {
           //console.log('code=1')
           that.isfirst = false
-          that.bookdata = response.data['data']
+          that.bookdata = response.data['data']['books']
+          //console.log(response.data)
         }
       })
     },
