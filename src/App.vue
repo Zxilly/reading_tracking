@@ -16,7 +16,7 @@
         <v-btn
             icon
         >
-          <v-icon @click="refresh">mdi-refresh</v-icon>
+          <v-icon @click="refresh(false)">mdi-refresh</v-icon>
         </v-btn>
         <v-menu min-width="10em">
           <template #activator="{ on, attrs }">
@@ -28,8 +28,7 @@
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </template>
-          <v-list
-          >
+          <v-list>
             <v-subheader>About Project</v-subheader>
             <v-list-item-group>
               <v-list-item @click="jumptoblog">
@@ -56,7 +55,7 @@
         <card
             :bookdata="bookdata"
             :username="username"
-            @refresh="refresh"
+            @refresh.capture="refresh(true)"
         />
       </template>
       <template v-else-if="loginStates&&isfirst">
@@ -64,35 +63,15 @@
             v-show="isfirstshow"
             :isfirst="isfirst"
             :username="username"
-            @showsnackbar="showSnackbar"
             @notfirst="isfirst=false"
         />
       </template>
       <template v-else>
         <login
             @login="loginfinish"
-            @showsnackbar="showSnackbar"
         />
       </template>
-
-      <v-snackbar
-          v-model="snackbar.snackbar"
-          :color="snackbar.snackbarcolor"
-          top
-          dark
-      >
-        {{ snackbar.msg }}
-        <template v-slot:action="{ attrs }">
-          <v-btn
-              dark
-              text
-              v-bind="attrs"
-              @click="snackbar.snackbar = false"
-          >
-            关闭
-          </v-btn>
-        </template>
-      </v-snackbar>
+      <snackbar/>
     </v-main>
   </v-app>
 </template>
@@ -102,25 +81,28 @@
 import Card from "@/components/card";
 import Login from "@/components/login";
 import Addbook from "@/components/addbook";
+import Snackbar from "@/components/snackbar";
 
 import Cookies from "js-cookie";
 import axios from 'axios';
 
 import {apiurl} from '@/config'
 
+
 //var apiurl = 'http://192.168.1.108:4000/api'
 
 export default {
   name: 'App',
-  created: function () {
-    //console.log(apiurl)
+  created() {
     if (this.checkCookie()) {
       this.loginStates = true;
       this.login()
-      //console.log(this.user)
     } else {
       this.loginStates = false;
     }
+  },
+  mounted() {
+    this.$bus.$on('refresh',this.refresh)
   },
   data: () => {
     return {
@@ -129,11 +111,6 @@ export default {
       isfirst: true,
       isfirstshow: false,
       bookdata: [],
-      snackbar: {
-        msg: '',
-        snackbar: false,
-        snackbarcolor: 'info'
-      }
     }
   },
   methods: {
@@ -153,40 +130,41 @@ export default {
     },
     getinfo: function () {
       var that = this
-      //console.log(this.username)
       axios.get(apiurl, {
         params: {
           user: that.username
         }
       }).then(function (response) {
-        //console.log(response.data['code']===0)
-        //console.log(typeof response.data['code'])
         if (response.data['code'] === 0) {
-          //console.log('code=0')
           that.isfirst = true
           that.isfirstshow = true
         } else if (response.data['code'] === 1) {
-          //console.log('code=1')
           that.isfirst = false
           that.bookdata = response.data['data']['books']
-          //console.log(response.data)
         }
       })
     },
     showSnackbar: function (snackbar_arg) {
-      this.snackbar.msg = snackbar_arg.msg
-      this.snackbar.snackbarcolor = snackbar_arg.snackbarcolor
-      this.snackbar.snackbar = true
+      //FIXME: commit snackbar
+      this.$store.commit('snackbar',snackbar_arg)
     },
     loginfinish: function () {
       this.login();
       this.loginStates = true;
     },
-    refresh: function (){
+    refresh: function (silent){
       this.getinfo()
+      console.log(silent)
+      if(!silent){
+        this.showSnackbar({
+          msg:'刷新成功',
+          color:'success',
+        })
+      }
     }
   },
   components: {
+    Snackbar,
     Addbook,
     Card,
     Login

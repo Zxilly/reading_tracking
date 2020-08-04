@@ -6,7 +6,6 @@
               :key="index"
               :username="username"
               :book="book"
-              @refresh="$emit('refresh')"
           />
       </v-row>
     </v-container>
@@ -17,7 +16,9 @@ import Bookcard from "@/components/bookcard";
 export default {
   name: "card",
   components: {Bookcard},
-  props: ['bookdata','username']
+  props: ['bookdata','username'],
+  methods:{
+  }
 }
 </script>
 

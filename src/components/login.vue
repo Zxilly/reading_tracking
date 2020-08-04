@@ -24,6 +24,7 @@
                 prepend-icon="mdi-account"
                 type="text"
                 v-model="username"
+                required
             ></v-text-field>
         </v-card-text>
         <v-card-actions>
@@ -48,7 +49,7 @@ export default {
       username:'',
       snackbar:{
         msg:'',
-        snackbarcolor:'success'
+        color:'success'
       },
     }
   },
@@ -56,7 +57,7 @@ export default {
     setCookie:function (){
       Cookies.set('user', this.username, { expires: 365 });
       this.snackbar.msg=this.username+' 成功登录'
-      this.$emit('showsnackbar',this.snackbar)
+      this.$store.commit('snackbar',this.snackbar)
       this.$emit('login');
     }
   }

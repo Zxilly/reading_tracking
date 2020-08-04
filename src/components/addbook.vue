@@ -73,7 +73,7 @@ export default {
     return {
       snackbar:{
         msg:'',
-        snackbarcolor:''
+        color:''
       },
       progress: null,
       tip: '',
@@ -97,7 +97,7 @@ export default {
         method: 'post',
         url: apiurl,
         params: {
-          user: this.username
+          'user': this.username
         },
         data: {
           'method': 'add',
@@ -112,7 +112,7 @@ export default {
           that.snackbar.msg = response.data['msg'];
           that.snackbar.snackbarcolor = 'success';
           //console.log(1)
-          that.$emit('showsnackbar',that.snackbar)
+          that.$store.commit('snackbar',that.snackbar)
           if (that.isfirst) {
             //console.log('notfirst')
             that.$emit('notfirst')
@@ -123,7 +123,7 @@ export default {
           that.snackbar.snackbarcolor = 'error';
           //console.log(2)
           //console.log(that.$parent.showSnackbar())
-          that.$emit('showsnackbar',that.snackbar)
+          that.$store.commit('showsnackbar',that.snackbar)
         }
       })
     }

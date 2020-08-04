@@ -46,7 +46,7 @@
           height="7px"
           class="mt-1"
           :value="progress_value"
-          :striped="!showprogress"
+          :striped="showprogress"
       />
       <v-card-actions>
         <v-menu transition="slide-x-transition" offset-x>
@@ -122,25 +122,17 @@ import {baseurl} from '@/config'
 import Udmobile from '@/components/updatedialog/udmobile'
 import Uddesktop from '@/components/updatedialog/uddesktop'
 
+
 export default {
   name: "bookcard",
   components: {Uddesktop, Udmobile},
   props: ['username', 'book'],
   created:function (){
     //console.log(this.mobile)
-    if(this.book.page_total!==''){
-      this.progress_value=this.book.progress/this.book.page_total*100
-      //console.log(this.progress_value)
-    }
-    else{
-      this.showprogress=false
-    }
   },
   data() {
     return {
       showexpand: false,
-      showprogress: true,
-      progress_value:100,
     }
   },
   computed:{
@@ -149,14 +141,23 @@ export default {
     },
     mobile:function (){
       return document.body.clientWidth<600
+    },
+    progress_value:function (){
+      if(this.book.page_total!==''){
+        return this.book.progress/this.book.page_total*100
+        //console.log(this.progress_value)
+      }
+      else{
+        return 101
+      }
+    },
+    showprogress:function () {
+      return this.progress_value>100
     }
   },
   methods:{
-    updateinfo:function (){
-
-    },
-    updateprogress:function () {
-
+    showsnackbar:function (arg) {
+      this.$store.commit('snackbar',arg)
     },
     deletecard:function () {
 
