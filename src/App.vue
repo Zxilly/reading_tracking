@@ -55,14 +55,15 @@
         <card
             :bookdata="bookdata"
             :username="username"
-            @refresh.capture="refresh(true)"
         />
       </template>
       <template v-else-if="loginStates&&isfirst">
+        <first
+            v-show="isfirstshow"
+        />
         <addbook
             v-show="isfirstshow"
-            :isfirst="isfirst"
-            :username="username"
+            :isfirst='true'
             @notfirst="isfirst=false"
         />
       </template>
@@ -80,13 +81,14 @@
 
 import Card from "@/components/card";
 import Login from "@/components/login";
-import Addbook from "@/components/addbook";
 import Snackbar from "@/components/snackbar";
 
 import Cookies from "js-cookie";
 import axios from 'axios';
 
 import {apiurl} from '@/config'
+import First from "@/components/first";
+import Addbook from "@/components/addbook";
 
 
 //var apiurl = 'http://192.168.1.108:4000/api'
@@ -126,6 +128,7 @@ export default {
     login: function () {
       //console.log('login is on')
       this.username = Cookies.get('user')
+      this.$store.commit('login',this.username)
       this.getinfo()
     },
     getinfo: function () {
@@ -139,8 +142,8 @@ export default {
           that.isfirst = true
           that.isfirstshow = true
         } else if (response.data['code'] === 1) {
-          that.isfirst = false
           that.bookdata = response.data['data']['books']
+          that.isfirst = false
         }
       })
     },
@@ -154,7 +157,7 @@ export default {
     },
     refresh: function (silent){
       this.getinfo()
-      console.log(silent)
+      //console.log(silent)
       if(!silent){
         this.showSnackbar({
           msg:'刷新成功',
@@ -164,8 +167,9 @@ export default {
     }
   },
   components: {
-    Snackbar,
     Addbook,
+    First,
+    Snackbar,
     Card,
     Login
   }

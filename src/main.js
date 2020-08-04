@@ -7,8 +7,13 @@ Vue.use(Vuex)
 
 Vue.prototype.$bus=new Vue()
 
+Vue.prototype.$mobile=function (){
+    return document.body.clientWidth<600
+}
+
 const store = new Vuex.Store({
     state:{
+        username:'',
         snackbar:{
             msg:'',
             color:'info'
@@ -18,6 +23,9 @@ const store = new Vuex.Store({
         snackbar:function (state,payload){
             state.snackbar.msg=payload.msg
             state.snackbar.color=payload.color
+        },
+        login:function (state,payload){
+            state.username=payload
         }
     }
 })
