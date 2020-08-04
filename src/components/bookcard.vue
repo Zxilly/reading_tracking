@@ -25,7 +25,9 @@
             <p
                 class="mb-0 pa-4">
               <span
-                  class="blue--text text-h4 font-weight-medium">{{book.progress}}</span><span class=""> / </span>{{ book.page_total===''?'NaN':book.page_total }}</p>
+                  class="text-h4 font-weight-medium"
+                  :class="[showprogress?'red--text':'blue--text']"
+              >{{book.progress}}</span><span class=""> / </span>{{ book.page_total===''?'NaN':book.page_total }}</p>
           </div>
         </div>
         <v-sheet
@@ -45,6 +47,7 @@
       <v-progress-linear
           height="7px"
           class="mt-1"
+          :color="showprogress?'red':'primary'"
           :value="progress_value"
           :striped="showprogress"
       />
@@ -60,7 +63,7 @@
             </v-btn>
           </template>
           <v-list>
-            <template v-if="mobile"> <!--开发中，回头记得改-->
+            <template v-if="mobile">
               <udmobile
                   :book="book"
               />
@@ -94,9 +97,7 @@
             </v-list-item>
           </v-list>
         </v-menu>
-
         <v-spacer></v-spacer>
-
         <v-btn
             icon
             @click="showexpand = !showexpand"

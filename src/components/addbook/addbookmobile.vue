@@ -76,12 +76,12 @@ export default {
   props:['rules'],
   methods:{
     sendinfo:function (){
-      console.log([
-        this.isbn,this.progress,this.tip
-      ])
+      //console.log([this.isbn,this.progress,this.tip])
+      this.dialog=false
       this.$emit('addbook',[
         this.isbn,this.progress,this.tip
-      ])
+      ]);
+      ([this.isbn,this.progress,this.tip]=['','','']);
     }
   }
 }
