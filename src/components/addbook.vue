@@ -71,7 +71,7 @@ export default {
           that.$store.commit('snackbar',that.snackbar)
           that.$bus.$emit('refresh',true)
           if (that.isfirst) {
-            console.log('notfirst')
+            //console.log('notfirst')
             that.$emit('notfirst')
           }
         }

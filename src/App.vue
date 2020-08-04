@@ -56,6 +56,9 @@
             :bookdata="bookdata"
             :username="username"
         />
+        <addbook
+            :isfirst='false'
+        />
       </template>
       <template v-else-if="loginStates&&isfirst">
         <first
