@@ -14,6 +14,7 @@
             <v-list-item-title class="mb-1">用户名</v-list-item-title>
             <v-text-field
                 filled
+                ref="user"
                 v-model="username"
                 :rules="rule"
             />
@@ -36,7 +37,12 @@ export default {
   },
   methods: {
     login: function () {
-      this.$emit('success', this.username);
+      if(this.$refs.user.validate()) {
+        this.$emit('success', this.username);
+      }
+      else {
+        this.$refs.user.validate(true)
+      }
     }
   }
 }
