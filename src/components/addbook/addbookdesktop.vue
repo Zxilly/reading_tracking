@@ -39,7 +39,6 @@
               <v-text-field
                   label="备注"
                   v-model="tip"
-                  :rules="rule"
                   required/>
             </v-col>
           </v-row>

@@ -9,16 +9,23 @@
           <v-row>
             <v-col cols="12">
               <v-text-field
+                  ref="user"
                   label="用户名"
                   v-model="username"
-                  required/>
+                  :rules="rule"
+              />
             </v-col>
           </v-row>
         </v-container>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="login">登录</v-btn>
+        <v-btn
+            color="blue darken-1"
+            text
+            @click="login"
+        >登录
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -27,16 +34,18 @@
 <script>
 export default {
   name: "logindesktop",
-  data(){
-    return{
-      dialog:true,
-      username:''
+  data() {
+    return {
+      dialog: true,
+      username: '',
+      rule: [value => !!value || '用户名不能为空',]
     }
   },
   methods: {
-    login:function (){
-      this.$emit('success',this.username);
-    }
+    login: function () {
+      
+      this.$emit('success', this.username);
+    },
   }
 }
 </script>
