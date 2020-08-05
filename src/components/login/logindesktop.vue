@@ -46,9 +46,6 @@ export default {
       if(this.$refs.user.validate()) {
         this.$emit('success', this.username);
       }
-      else {
-        this.$refs.user.validate(true)
-      }
     },
   }
 }

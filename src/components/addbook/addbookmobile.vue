@@ -31,6 +31,7 @@
             <v-list-item-title class="mb-1">ISBN</v-list-item-title>
             <v-text-field
                 filled
+                ref="isbn"
                 v-model="isbn"
                 :rules="rules.isbn"
                 required
@@ -42,6 +43,7 @@
             <v-list-item-title class="mb-1">阅读进度</v-list-item-title>
             <v-text-field
                 filled
+                ref="progress"
                 v-model="progress"
                 :rules="rules.progress"
                 required
@@ -52,6 +54,7 @@
           <v-list-item-content>
             <v-list-item-title class="mb-1">备注</v-list-item-title>
             <v-text-field
+                ref="tip"
                 filled
                 v-model="tip"
             />
@@ -65,23 +68,25 @@
 <script>
 export default {
   name: "addbookmobile",
-  data(){
-    return{
-      dialog:false,
-      isbn:'',
-      progress:'',
-      tip:''
+  data() {
+    return {
+      dialog: false,
+      isbn: '',
+      progress: '',
+      tip: ''
     }
   },
-  props:['rules'],
-  methods:{
-    sendinfo:function (){
+  props: ['rules'],
+  methods: {
+    sendinfo: function () {
       //console.log([this.isbn,this.progress,this.tip])
-      this.dialog=false
-      this.$emit('addbook',[
-        this.isbn,this.progress,this.tip
-      ]);
-      ([this.isbn,this.progress,this.tip]=['','','']);
+      this.dialog = false
+      if (this.$refs.isbn.validate() && this.$refs.progress.validate() && this.$refs.tip.validate()) {
+        this.$emit('addbook', [
+          this.isbn, this.progress, this.tip
+        ]);
+        ([this.isbn, this.progress, this.tip] = ['', '', '']);
+      }
     }
   }
 }

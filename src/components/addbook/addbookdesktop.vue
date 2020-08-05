@@ -24,6 +24,7 @@
             <v-col cols="12">
               <v-text-field
                   label="ISBN"
+                  ref="isbn"
                   v-model="isbn"
                   :rules="rules.isbn"
                   required/>
@@ -31,6 +32,7 @@
             <v-col cols="12">
               <v-text-field
                   label="阅读进度"
+                  ref="progress"
                   v-model="progress"
                   :rules="rules.progress"
                   required/>
@@ -38,6 +40,7 @@
             <v-col cols="12">
               <v-text-field
                   label="备注"
+                  ref="tip"
                   v-model="tip"
                   required/>
             </v-col>
@@ -68,11 +71,13 @@ export default {
   methods: {
     sendinfo: function () {
       //console.log([this.isbn, this.progress, this.tip])
-      this.dialog=false
-      this.$emit('addbook', [
-        this.isbn, this.progress, this.tip
-      ]);
-      ([this.isbn,this.progress,this.tip]=['','','']);
+      this.dialog = false
+      if (this.$refs.isbn.validate() && this.$refs.progress.validate() && this.$refs.tip.validate()) {
+        this.$emit('addbook', [
+          this.isbn, this.progress, this.tip
+        ]);
+        ([this.isbn, this.progress, this.tip] = ['', '', '']);
+      }
     }
   }
 }
