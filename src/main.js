@@ -11,6 +11,10 @@ Vue.prototype.$mobile=function (){
     return document.body.clientWidth<600
 }
 
+Vue.prototype.$snackbar=function (msg,color){
+    mainel.$store.commit('snackbar',[msg,color]);
+}
+
 const store = new Vuex.Store({
     state:{
         username:'',
@@ -32,7 +36,7 @@ const store = new Vuex.Store({
 
 Vue.config.productionTip = false
 
-new Vue({
+ var mainel = new Vue({
     el:'#app',
     vuetify,
     store,
