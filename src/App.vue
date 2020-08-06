@@ -107,7 +107,7 @@ export default {
     }
   },
   mounted() {
-    this.$bus.$on('refresh',this.refresh)
+    this.$bus.$on('refresh', this.refresh)
   },
   data: () => {
     return {
@@ -131,7 +131,7 @@ export default {
     login: function () {
       //console.log('login is on')
       this.username = Cookies.get('user')
-      this.$store.commit('login',this.username)
+      this.$store.commit('login', this.username)
       this.getinfo()
     },
     getinfo: function () {
@@ -152,19 +152,19 @@ export default {
     },
     showSnackbar: function (snackbar_arg) {
       //FIXME: commit snackbar
-      this.$store.commit('snackbar',snackbar_arg)
+      this.$store.commit('snackbar', snackbar_arg)
     },
     loginfinish: function () {
       this.login();
       this.loginStates = true;
     },
-    refresh: function (silent){
+    refresh: function (silent) {
       this.getinfo()
       //console.log(silent)
-      if(!silent){
+      if (!silent) {
         this.showSnackbar({
-          msg:'刷新成功',
-          color:'success',
+          msg: '刷新成功',
+          color: 'success',
         })
       }
     }

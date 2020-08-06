@@ -27,7 +27,8 @@
               <span
                   class="text-h4 font-weight-medium"
                   :class="[showprogress?'red--text':'blue--text']"
-              >{{book.progress}}</span><span class=""> / </span>{{ book.page_total===''?'NaN':book.page_total }}</p>
+              >{{ book.progress }}</span><span class=""> / </span>{{ book.page_total === '' ? 'NaN' : book.page_total }}
+            </p>
           </div>
         </div>
         <v-sheet
@@ -64,26 +65,27 @@
           </template>
           <v-list>
             <template v-if="mobile">
+              <prog
+                  :key="book.progress"
+                  :progress="book.progress"
+                  :max_page="book.page_total"
+                  :isbn="book.isbn"
+              />
               <udmobile
                   :book="book"
               />
             </template>
             <template v-else>
+              <prog
+                  :key="book.progress"
+                  :progress="book.progress"
+                  :max_page="book.page_total"
+                  :isbn="book.isbn"
+              />
               <uddesktop
-                :book="book"
-                />
+                  :book="book"
+              />
             </template>
-
-            <v-list-item
-                @click="'console.log(2)'"
-            >
-              <v-list-item-icon>
-                <v-icon>mdi-radar</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>更新进度</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
             <v-divider/>
             <v-list-item
                 @click="'console.log(3)'"
@@ -98,21 +100,21 @@
           </v-list>
         </v-menu>
         <v-spacer></v-spacer>
-        <v-btn
+        <!--<v-btn
             icon
             @click="showexpand = !showexpand"
             v-if="book.tip!==''">
           <v-icon>{{ showexpand ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-        </v-btn>
+        </v-btn>-->
       </v-card-actions>
-      <v-expand-transition>
+      <!--<v-expand-transition>
         <div v-show="showexpand">
           <v-divider></v-divider>
           <v-card-text style="min-height: 80px">
-            {{book.tip}}
+            {{ book.tip }}
           </v-card-text>
         </div>
-      </v-expand-transition>
+      </v-expand-transition>-->
     </v-card>
   </v-col>
 </template>
@@ -122,13 +124,14 @@ import {baseurl} from '@/config'
 
 import Udmobile from '@/components/updatedialog/udmobile'
 import Uddesktop from '@/components/updatedialog/uddesktop'
+import Prog from '@/components/progress/prog'
 
 
 export default {
   name: "bookcard",
-  components: {Uddesktop, Udmobile},
+  components: {Prog, Uddesktop, Udmobile},
   props: ['username', 'book'],
-  created:function (){
+  created: function () {
     //console.log(this.mobile)
   },
   data() {
@@ -136,31 +139,30 @@ export default {
       showexpand: false,
     }
   },
-  computed:{
-    pic_url:function (){
-      return baseurl+this.book.pic_url
+  computed: {
+    pic_url: function () {
+      return baseurl + this.book.pic_url
     },
-    mobile:function (){
-      return document.body.clientWidth<600
+    mobile: function () {
+      return document.body.clientWidth < 600
     },
-    progress_value:function (){
-      if(this.book.page_total!==''){
-        return this.book.progress/this.book.page_total*100
+    progress_value: function () {
+      if (this.book.page_total !== '') {
+        return this.book.progress / this.book.page_total * 100
         //console.log(this.progress_value)
-      }
-      else{
+      } else {
         return 101
       }
     },
-    showprogress:function () {
-      return this.progress_value>100
+    showprogress: function () {
+      return this.progress_value > 100
     }
   },
-  methods:{
-    showsnackbar:function (arg) {
-      this.$store.commit('snackbar',arg)
+  methods: {
+    showsnackbar: function (arg) {
+      this.$store.commit('snackbar', arg)
     },
-    deletecard:function () {
+    deletecard: function () {
 
     },
   }

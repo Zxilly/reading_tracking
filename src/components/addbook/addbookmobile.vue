@@ -50,7 +50,7 @@
             />
           </v-list-item-content>
         </v-list-item>
-        <v-list-item class="mt-4">
+        <!--<v-list-item class="mt-4">
           <v-list-item-content>
             <v-list-item-title class="mb-1">备注</v-list-item-title>
             <v-text-field
@@ -59,7 +59,7 @@
                 v-model="tip"
             />
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item>-->
       </v-list>
     </v-card>
   </v-dialog>

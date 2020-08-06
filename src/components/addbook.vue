@@ -19,15 +19,16 @@ import {apiurl} from '@/config'
 
 import Addbookmobile from "@/components/addbook/addbookmobile";
 import Addbookdesktop from "@/components/addbook/addbookdesktop";
+
 export default {
   name: "addbook",
   components: {Addbookdesktop, Addbookmobile},
-  props:['isfirst'],
+  props: ['isfirst'],
   data() {
     return {
-      snackbar:{
-        msg:'',
-        color:''
+      snackbar: {
+        msg: '',
+        color: ''
       },
       rules: {
         isbn: [
@@ -37,6 +38,7 @@ export default {
         progress: [
           value => !!value || '必填',
           value => Math.round(value).toString() === value || '阅读页数应为一个数字',
+          value => value >= 0
         ],
       }
     }
@@ -47,7 +49,7 @@ export default {
     }
   },
   methods: {
-    addbook: function ([isbn,progress,tip]) {
+    addbook: function ([isbn, progress, tip]) {
       var that = this
       axios({
         method: 'post',
@@ -68,8 +70,8 @@ export default {
           that.snackbar.msg = response.data['msg'];
           that.snackbar.color = 'success';
           //console.log(1)
-          that.$store.commit('snackbar',that.snackbar)
-          that.$bus.$emit('refresh',true)
+          that.$store.commit('snackbar', that.snackbar)
+          that.$bus.$emit('refresh', true)
           if (that.isfirst) {
             //console.log('notfirst')
             that.$emit('notfirst')
@@ -78,7 +80,7 @@ export default {
         if (response.data['code'] === 4 || response.data['code'] === 5) {
           that.snackbar.msg = response.data['msg'];
           that.snackbar.color = 'error';
-          that.$store.commit('showsnackbar',that.snackbar)
+          that.$store.commit('showsnackbar', that.snackbar)
         }
       })
     }

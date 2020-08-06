@@ -5,6 +5,11 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+const isDebug_mode = process.env.NODE_ENV !== 'production'
+Vue.config.debug = isDebug_mode
+Vue.config.devtools = isDebug_mode
+Vue.config.productionTip = isDebug_mode
+
 Vue.prototype.$bus=new Vue()
 
 Vue.prototype.$mobile=function (){
@@ -34,7 +39,6 @@ const store = new Vuex.Store({
     }
 })
 
-Vue.config.productionTip = false
 
  var mainel = new Vue({
     el:'#app',

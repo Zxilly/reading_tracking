@@ -37,13 +37,13 @@
                   :rules="rules.progress"
                   required/>
             </v-col>
-            <v-col cols="12">
+            <!--<v-col cols="12">
               <v-text-field
                   label="备注"
                   ref="tip"
                   v-model="tip"
                   required/>
-            </v-col>
+            </v-col>-->
           </v-row>
         </v-container>
       </v-card-text>

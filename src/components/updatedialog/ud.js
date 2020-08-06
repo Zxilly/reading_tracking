@@ -4,14 +4,14 @@ import Cookies from 'js-cookie'
 import {apiurl} from '@/config'
 
 
-export function updatedialog(isbn,bookname,author,page) {
+export function updatedialog(isbn, bookname, author, page) {
     //eslint-disable-next-line no-debugger
     //debugger
-    if(!isbn){
+    if (!isbn) {
         return
     }
     var username = Cookies.get('user')
-    var msg=''
+    var msg = ''
     return new Promise((resolve, reject) => {
         axios({
             method: 'post',
