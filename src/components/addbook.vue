@@ -2,13 +2,17 @@
   <div v-if="mobile">
     <addbookmobile
         @addbook="addbook"
+        @reset="reset=!reset"
         :rules="rules"
+        :reset="reset"
     />
   </div>
   <div v-else>
     <addbookdesktop
         @addbook="addbook"
+        @reset="reset=!reset"
         :rules="rules"
+        :key="reset"
     />
   </div>
 </template>
@@ -26,6 +30,7 @@ export default {
   props: ['isfirst'],
   data() {
     return {
+      reset:true,
       snackbar: {
         msg: '',
         color: ''

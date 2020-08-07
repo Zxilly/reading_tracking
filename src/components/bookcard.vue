@@ -65,41 +65,29 @@
           </template>
           <v-list>
             <template v-if="mobile">
-              <prog
-                  :key="book.progress"
-                  :progress="book.progress"
-                  :max_page="book.page_total"
-                  :isbn="book.isbn"
-              />
               <udmobile
                   :book="book"
               />
             </template>
             <template v-else>
-              <prog
-                  :key="book.progress"
-                  :progress="book.progress"
-                  :max_page="book.page_total"
-                  :isbn="book.isbn"
-              />
               <uddesktop
                   :book="book"
               />
             </template>
             <v-divider/>
-            <v-list-item
-                @click="'console.log(3)'"
-            >
-              <v-list-item-icon>
-                <v-icon color="red darken-1">mdi-delete</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title class="red--text text--darken-1">删除书籍</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
+            <delete
+                :isbn="book.isbn"
+            />
           </v-list>
         </v-menu>
         <v-spacer></v-spacer>
+        <prog
+            :bookname="book.title"
+            :key="book.progress"
+            :progress="book.progress"
+            :max_page="book.page_total"
+            :isbn="book.isbn"
+        />
         <!--<v-btn
             icon
             @click="showexpand = !showexpand"
@@ -125,11 +113,12 @@ import {baseurl} from '@/config'
 import Udmobile from '@/components/updatedialog/udmobile'
 import Uddesktop from '@/components/updatedialog/uddesktop'
 import Prog from '@/components/progress/prog'
+import Delete from "@/components/delete";
 
 
 export default {
   name: "bookcard",
-  components: {Prog, Uddesktop, Udmobile},
+  components: {Delete, Prog, Uddesktop, Udmobile},
   props: ['username', 'book'],
   created: function () {
     //console.log(this.mobile)
@@ -161,9 +150,6 @@ export default {
   methods: {
     showsnackbar: function (arg) {
       this.$store.commit('snackbar', arg)
-    },
-    deletecard: function () {
-
     },
   }
 }

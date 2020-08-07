@@ -17,7 +17,10 @@ Vue.prototype.$mobile=function (){
 }
 
 Vue.prototype.$snackbar=function (msg,color){
-    mainel.$store.commit('snackbar',[msg,color]);
+    mainel.$store.commit('snackbar',{
+        'msg':msg,
+        "color":color,
+    });
 }
 
 const store = new Vuex.Store({

@@ -49,7 +49,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="dialog=false">关闭</v-btn>
+        <v-btn color="blue darken-1" text @click="dialog=false;$emit('reset')">关闭</v-btn>
         <v-btn color="blue darken-1" text @click="sendinfo">保存</v-btn>
       </v-card-actions>
     </v-card>
@@ -67,16 +67,16 @@ export default {
       tip: ''
     }
   },
-  props: ['rules'],
+  props: ['rules','reset'],
   methods: {
     sendinfo: function () {
       //console.log([this.isbn, this.progress, this.tip])
       this.dialog = false
-      if (this.$refs.isbn.validate() && this.$refs.progress.validate() && this.$refs.tip.validate()) {
+      if (this.$refs.isbn.validate() && this.$refs.progress.validate()) {
         this.$emit('addbook', [
           this.isbn, this.progress, this.tip
         ]);
-        ([this.isbn, this.progress, this.tip] = ['', '', '']);
+        //([this.isbn, this.progress, this.tip] = ['', '', '']);
       }
     }
   }

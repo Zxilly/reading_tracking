@@ -16,7 +16,7 @@
     </template>
     <v-card>
       <v-toolbar dark color="primary">
-        <v-btn icon dark @click="dialog = false">
+        <v-btn icon dark @click="dialog = false;$emit('reset')">
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-toolbar-title>添加书籍</v-toolbar-title>
@@ -76,16 +76,16 @@ export default {
       tip: ''
     }
   },
-  props: ['rules'],
+  props: ['rules','reset'],
   methods: {
     sendinfo: function () {
       //console.log([this.isbn,this.progress,this.tip])
       this.dialog = false
-      if (this.$refs.isbn.validate() && this.$refs.progress.validate() && this.$refs.tip.validate()) {
+      if (this.$refs.isbn.validate() && this.$refs.progress.validate()) {
         this.$emit('addbook', [
           this.isbn, this.progress, this.tip
         ]);
-        ([this.isbn, this.progress, this.tip] = ['', '', '']);
+        //([this.isbn, this.progress, this.tip] = ['', '', '']);
       }
     }
   }

@@ -1,7 +1,7 @@
 <template>
-  <v-dialog v-model="dialog" persistent width="95vw" max-width="600px">
+  <v-dialog v-model="dialog" persistent retain-focus width="95vw" max-width="600px">
     <template v-slot:activator="{ on, attrs }">
-      <v-list-item
+      <!--<v-list-item
           v-bind="attrs"
           v-on="on"
       >
@@ -11,11 +11,18 @@
         <v-list-item-content>
           <v-list-item-title>更新进度</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item>-->
+      <v-btn
+          text
+          v-bind="attrs"
+          v-on="on"
+      >
+        UPDATE
+      </v-btn>
     </template>
     <v-card class="pa-2">
-      <v-card-title>
-        <span class="headline">更新进度</span>
+      <v-card-title class="pb-4">
+        <span class="headline">更新 {{bookname}} 进度</span>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -48,35 +55,34 @@
         </v-container>
       </v-card-text>
       <v-card-actions>
-        <v-dialog v-model="dialog2" persistent width="95vw" max-width="600px">
+        <v-dialog v-model="dialog2" retain-focus persistent width="95vw" max-width="400px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="blue darken-1" text v-bind="attrs" v-on="on">直接输入</v-btn>
           </template>
           <v-card class="pa-2">
+            <v-card-title>
+              <span class="headline">阅读进度</span>
+            </v-card-title>
             <v-card-text>
-              <v-card-title>
-                <span class="headline">阅读进度</span>
-              </v-card-title>
               <v-text-field
                   ref="progress"
-                  v-model="nprogress"
+                  v-model="dprogress"
                   :rules="rule"
               />
             </v-card-text>
             <v-card-actions>
-              <v-btn color="blue darken-1" text @click="dialog2=false">关闭</v-btn>
+              <v-btn color="blue darken-1" text @click="close2">关闭</v-btn>
               <v-spacer/>
-              <v-btn color="blue darken-1" text @click="nsendinfo(nprogress,true)">保存</v-btn>
+              <v-btn color="blue darken-1" text @click="nsendinfo(dprogress,true)">保存</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
         <v-spacer/>
-        <v-btn color="blue darken-1" text @click="dialog=false">关闭</v-btn>
+        <v-btn color="blue darken-1" text @click="close1">关闭</v-btn>
         <v-btn color="blue darken-1" text @click="nsendinfo(nprogress)">保存</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
-
 </template>
 
 <script>
@@ -84,17 +90,18 @@ import {sendinfo} from '@/components/progress/progress';
 
 export default {
   name: "progressmobile",
-  props: ['progress', 'max_page', 'isbn'],
+  props: ['progress', 'max_page', 'isbn','bookname'],
   data() {
     return {
       nprogress: this.progress,
+      dprogress: this.progress,
       max: '',
       min: '',
       dialog: false,
       dialog2: false,
       rule: [
         value => !!value || '必填',
-        value => typeof value === "number" || '阅读页数应为一个数字',
+        value => Math.round(value) === value || '阅读页数应为一个数字',
         value => value < this.max_page || '阅读进度应小于总页数'
       ]
     }
@@ -103,8 +110,8 @@ export default {
     if (this.nprogress > this.max_page || this.nprogress < 0) {
       this.nprogress = 0
     }
-    this.max = this.max_page >= this.nprogress + 50 ? this.nprogress + 50 : this.max_page
-    this.min = 0 >= this.nprogress - 50 ? 0 : this.nprogress - 50
+    this.max = this.max_page >= this.nprogress + 70 ? this.nprogress + 70 : this.max_page
+    this.min = 0 >= this.nprogress - 30 ? 0 : this.nprogress - 30
   },
   methods: {
     sendinfo,
@@ -134,6 +141,16 @@ export default {
         that.dialog = false
         that.$bus.$emit('refresh', true)
       })
+    },
+    close1:function () {
+      //debugger
+      this.dialog=false;
+      this.nprogress=this.progress
+    },
+    close2:function () {
+      //debugger
+      this.dialog2=false;
+      this.dprogress=this.progress
     }
   }
 }
