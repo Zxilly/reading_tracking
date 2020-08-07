@@ -17,6 +17,7 @@
                 ref="user"
                 v-model="username"
                 :rules="rule"
+                @keydown.enter="login"
             />
           </v-list-item-content>
         </v-list-item>

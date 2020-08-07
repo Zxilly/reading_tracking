@@ -85,7 +85,7 @@ export default {
         if (response.data['code'] === 4 || response.data['code'] === 5) {
           that.snackbar.msg = response.data['msg'];
           that.snackbar.color = 'error';
-          that.$store.commit('showsnackbar', that.snackbar)
+          that.$store.commit('snackbar', that.snackbar)
         }
       })
     }

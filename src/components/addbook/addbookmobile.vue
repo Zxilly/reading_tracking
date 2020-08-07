@@ -46,6 +46,7 @@
                 ref="progress"
                 v-model="progress"
                 :rules="rules.progress"
+                placeholder="已经读了多少页？"
                 required
             />
           </v-list-item-content>
@@ -85,6 +86,7 @@ export default {
         this.$emit('addbook', [
           this.isbn, this.progress, this.tip
         ]);
+        this.$emit('reset')
         //([this.isbn, this.progress, this.tip] = ['', '', '']);
       }
     }

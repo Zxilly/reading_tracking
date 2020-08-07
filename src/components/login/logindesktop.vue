@@ -13,6 +13,7 @@
                   label="用户名"
                   v-model="username"
                   :rules="rule"
+                  @keydown.enter="login"
               />
             </v-col>
           </v-row>

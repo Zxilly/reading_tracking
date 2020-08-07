@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" persistent retain-focus width="95vw" max-width="600px">
+  <v-dialog v-model="dialog" persistent width="95vw" max-width="600px">
     <template v-slot:activator="{ on, attrs }">
       <!--<v-list-item
           v-bind="attrs"
@@ -22,7 +22,7 @@
     </template>
     <v-card class="pa-2">
       <v-card-title class="pb-4">
-        <span class="headline">更新 {{bookname}} 进度</span>
+        <span class="headline">更新 {{ bookname }} 进度</span>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -55,7 +55,7 @@
         </v-container>
       </v-card-text>
       <v-card-actions>
-        <v-dialog v-model="dialog2" retain-focus persistent width="95vw" max-width="400px">
+        <v-dialog v-model="dialog2" persistent width="95vw" max-width="400px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="blue darken-1" text v-bind="attrs" v-on="on">直接输入</v-btn>
           </template>
@@ -68,6 +68,8 @@
                   ref="progress"
                   v-model="dprogress"
                   :rules="rule"
+                  autofocus
+                  @keydown.enter="nsendinfo(dprogress,true)"
               />
             </v-card-text>
             <v-card-actions>
@@ -90,7 +92,7 @@ import {sendinfo} from '@/components/progress/progress';
 
 export default {
   name: "progressmobile",
-  props: ['progress', 'max_page', 'isbn','bookname'],
+  props: ['progress', 'max_page', 'isbn', 'bookname'],
   data() {
     return {
       nprogress: this.progress,
@@ -101,8 +103,12 @@ export default {
       dialog2: false,
       rule: [
         value => !!value || '必填',
-        value => Math.round(value) === value || '阅读页数应为一个数字',
-        value => value < this.max_page || '阅读进度应小于总页数'
+        value => Math.round(value).toString() === value || '阅读页数应为一个数字',
+        value => {
+          console.log('now' + value)
+          console.log(value < this.max_page || '阅读进度应小于总页数')
+          return value < this.max_page || '阅读进度应小于总页数' //FIXME:always true
+        }
       ]
     }
   },
@@ -142,15 +148,15 @@ export default {
         that.$bus.$emit('refresh', true)
       })
     },
-    close1:function () {
+    close1: function () {
       //debugger
-      this.dialog=false;
-      this.nprogress=this.progress
+      this.dialog = false;
+      this.nprogress = this.progress
     },
-    close2:function () {
+    close2: function () {
       //debugger
-      this.dialog2=false;
-      this.dprogress=this.progress
+      this.dialog2 = false;
+      this.dprogress = this.progress
     }
   }
 }
