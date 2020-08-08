@@ -16,6 +16,7 @@
           text
           v-bind="attrs"
           v-on="on"
+          v-if="!max_page===''"
       >
         UPDATE
       </v-btn>
@@ -103,11 +104,12 @@ export default {
       dialog2: false,
       rule: [
         value => !!value || '必填',
-        value => Math.round(value).toString() === value || '阅读页数应为一个数字',
+        value => typeof parseInt(value) === "number" || '阅读页数应为一个数字',
         value => {
-          console.log('now' + value)
-          console.log(value < this.max_page || '阅读进度应小于总页数')
-          return value < this.max_page || '阅读进度应小于总页数' //FIXME:always true
+          //console.log(typeof value)
+          //console.log(typeof this.max_page)
+          //console.log(value < parseInt(this.max_page) || '阅读进度应小于总页数')
+          return value < parseInt(this.max_page) || '阅读进度应小于总页数'
         }
       ]
     }
