@@ -16,7 +16,7 @@
           text
           v-bind="attrs"
           v-on="on"
-          v-if="!max_page===''"
+          v-show="max_page"
       >
         UPDATE
       </v-btn>

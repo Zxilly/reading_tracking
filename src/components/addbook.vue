@@ -42,8 +42,8 @@ export default {
         ],
         progress: [
           value => !!value || '必填',
-          value => Math.round(value).toString() === value || '阅读页数应为一个数字',
-          value => value >= 0
+          value => Math.round(value) === parseInt(value) || '阅读页数应为一个数字',
+          value => parseInt(value) >= 0 || '阅读页数不应小于0'
         ],
       }
     }

@@ -81,11 +81,11 @@ export default {
   methods: {
     sendinfo: function () {
       //console.log([this.isbn,this.progress,this.tip])
-      this.dialog = false
       if (this.$refs.isbn.validate() && this.$refs.progress.validate()) {
         this.$emit('addbook', [
           this.isbn, this.progress, this.tip
         ]);
+        this.dialog = false
         this.$emit('reset')
         //([this.isbn, this.progress, this.tip] = ['', '', '']);
       }

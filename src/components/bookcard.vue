@@ -3,6 +3,7 @@
       cols="12"
       md="6"
       lg="4"
+      :key="key"
   >
     <v-card
         class="ma-md-4 ma-xs-2"
@@ -129,6 +130,9 @@ export default {
     }
   },
   computed: {
+    key: function () {
+      return this.book.title+this.book.page_total+this.book.progress+this.book.author_str+this.book.isbn
+    },
     pic_url: function () {
       return baseurl + this.book.pic_url
     },
