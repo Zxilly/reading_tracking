@@ -1,18 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" retain-focus persistent width="95vw" max-width="400px">
-    <template v-slot:activator="{ on, attrs }">
-      <v-list-item
-          v-bind="attrs"
-          v-on="on"
-      >
-        <v-list-item-icon>
-          <v-icon color="red darken-1">mdi-delete</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title class="red--text text--darken-1">删除书籍</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </template>
+  <v-dialog v-model="dialog" persistent width="95vw" max-width="400px">
     <v-card class="pa-2">
       <v-card-title>删除</v-card-title>
       <v-card-text>

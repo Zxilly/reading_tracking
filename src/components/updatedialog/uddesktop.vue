@@ -1,18 +1,5 @@
 <template>
     <v-dialog v-model="dialog" persistent max-width="600px">
-      <template v-slot:activator="{ on, attrs }">
-        <v-list-item
-            v-bind="attrs"
-            v-on="on"
-        >
-          <v-list-item-icon>
-            <v-icon>mdi-pencil</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>修改信息</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </template>
       <v-card class="pa-2">
         <v-card-title>
           <span class="headline">修改信息</span>

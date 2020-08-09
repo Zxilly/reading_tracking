@@ -71,7 +71,11 @@
                   :rules="rule"
                   autofocus
                   @keydown.enter="nsendinfo(dprogress,true)"
-              />
+              >
+                <template v-slot:append>
+                  <span>页</span>
+                </template>
+              </v-text-field>
             </v-card-text>
             <v-card-actions>
               <v-btn color="blue darken-1" text @click="close2">关闭</v-btn>

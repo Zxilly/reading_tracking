@@ -65,20 +65,27 @@
             </v-btn>
           </template>
           <v-list>
-            <template v-if="mobile">
-              <udmobile
-                  :book="book"
-              />
-            </template>
-            <template v-else>
-              <uddesktop
-                  :book="book"
-              />
-            </template>
+            <v-list-item
+                @click.stop="udref.dialog=true"
+            >
+              <v-list-item-icon>
+                <v-icon>mdi-pencil</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>修改信息</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
             <v-divider/>
-            <delete
-                :isbn="book.isbn"
-            />
+            <v-list-item
+                @click.stop="dlref.dialog=true"
+            >
+              <v-list-item-icon>
+                <v-icon color="red darken-1">mdi-delete</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="red--text text--darken-1">删除书籍</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
           </v-list>
         </v-menu>
         <v-spacer></v-spacer>
@@ -105,6 +112,22 @@
         </div>
       </v-expand-transition>-->
     </v-card>
+    <template v-if="mobile">
+      <udmobile
+          :book="book"
+          ref="ud"
+      />
+    </template>
+    <template v-else>
+      <uddesktop
+          :book="book"
+          ref="ud"
+      />
+    </template>
+    <delete
+        ref="dl"
+        :isbn="book.isbn"
+    />
   </v-col>
 </template>
 
@@ -127,11 +150,17 @@ export default {
   data() {
     return {
       showexpand: false,
+      udref:null,
+      dlref:null,
     }
+  },
+  mounted() {
+    this.udref=this.$refs.ud
+    this.dlref=this.$refs.dl
   },
   computed: {
     key: function () {
-      return this.book.title+this.book.page_total+this.book.progress+this.book.author_str+this.book.isbn
+      return this.book.title + this.book.page_total + this.book.progress + this.book.author_str + this.book.isbn
     },
     pic_url: function () {
       return baseurl + this.book.pic_url
