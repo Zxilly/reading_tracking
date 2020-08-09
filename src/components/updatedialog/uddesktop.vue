@@ -52,7 +52,8 @@ export default {
       page: this.book.page_total,
       rule: [
         value => !!value || '必填',
-        value => Math.round(value).toString() === value || '页数应为一个数字',
+        value => (Math.round(value) === parseInt(value) && parseInt(value) >= 0) || '页数应为正整数',
+        value => parseInt(value) < 853456 || '这本书的页数打破了世界纪录'
       ],
       snackbar: {
         color: 'info',

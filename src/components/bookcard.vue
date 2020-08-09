@@ -144,9 +144,6 @@ export default {
   name: "bookcard",
   components: {Delete, Prog, Uddesktop, Udmobile},
   props: ['username', 'book'],
-  created: function () {
-    //console.log(this.mobile)
-  },
   data() {
     return {
       showexpand: false,
@@ -155,6 +152,12 @@ export default {
     }
   },
   mounted() {
+    console.log('mount')
+    this.udref=this.$refs.ud
+    this.dlref=this.$refs.dl
+  },
+  updated() {
+    console.log('update')
     this.udref=this.$refs.ud
     this.dlref=this.$refs.dl
   },

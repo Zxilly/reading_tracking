@@ -123,7 +123,7 @@ export default {
       window.open('https://learningman.top', '_blank');
     },
     jumptogithub: () => {
-      window.open('https://github.com', '_blank');
+      window.open('https://github.com/Zxilly/reading_tracking', '_blank');
     },
     checkCookie: () => {
       return Cookies.get('user') != null;

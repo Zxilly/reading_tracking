@@ -1,18 +1,5 @@
 <template>
   <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-    <template v-slot:activator="{ on, attrs }">
-      <v-list-item
-          v-bind="attrs"
-          v-on="on"
-      >
-        <v-list-item-icon>
-          <v-icon>mdi-pencil</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>修改信息</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </template>
     <v-card>
       <v-toolbar dark color="primary">
         <v-btn icon dark @click="dialog = false">
@@ -75,7 +62,8 @@ export default {
       page: this.book.page_total,
       rule: [
         value => !!value || '必填',
-        value => Math.round(value).toString() === value || '页数应为一个数字',
+        value => (Math.round(value) === parseInt(value) && parseInt(value) >= 0) || '页数应为正整数',
+        value => parseInt(value) < 853456 || '这本书的页数打破了世界纪录'
       ],
       snackbar: {
         color: 'info',

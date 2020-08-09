@@ -108,13 +108,10 @@ export default {
       dialog2: false,
       rule: [
         value => !!value || '必填',
-        value => typeof parseInt(value) === "number" || '阅读页数应为一个数字',
         value => {
-          //console.log(typeof value)
-          //console.log(typeof this.max_page)
-          //console.log(value < parseInt(this.max_page) || '阅读进度应小于总页数')
           return value < parseInt(this.max_page) || '阅读进度应小于总页数'
-        }
+        },
+        value => (Math.round(value) === parseInt(value) && parseInt(value) >= 0) || '阅读页数应为正整数'
       ]
     }
   },
