@@ -109,7 +109,7 @@ export default {
       rule: [
         value => !!value || '必填',
         value => {
-          return value < parseInt(this.max_page) || '阅读进度应小于总页数'
+          return value <= parseInt(this.max_page) || '阅读进度应小于总页数'
         },
         value => (Math.round(value) === parseInt(value) && parseInt(value) >= 0) || '阅读页数应为正整数'
       ]
