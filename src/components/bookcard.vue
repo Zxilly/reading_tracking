@@ -38,6 +38,7 @@
             height="30%"
             color="lighten-4 grey"
             class="pa-2 ma-4 align-self-center d-none d-sm-flex"
+            v-if="showpic"
         >
 
           <v-img
@@ -166,10 +167,13 @@ export default {
       return this.book.title + this.book.page_total + this.book.progress + this.book.author_str + this.book.isbn
     },
     pic_url: function () {
-      return baseurl + this.book.pic_url
+      return this.book.pic_url!==''?baseurl + this.book.pic_url:''
     },
     mobile: function () {
       return document.body.clientWidth < 600
+    },
+    showpic: function (){
+      return this.book.pic_url!==''
     },
     progress_value: function () {
       if (this.book.page_total !== '') {
@@ -192,5 +196,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
