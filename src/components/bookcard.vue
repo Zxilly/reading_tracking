@@ -38,7 +38,7 @@
             height="30%"
             color="lighten-4 grey"
             class="pa-2 ma-4 align-self-center d-none d-sm-flex"
-            v-if="showpic"
+            :style="{visibility: (showpic?'visable':'hidden')}"
         >
 
           <v-img
@@ -97,21 +97,7 @@
             :max_page="book.page_total"
             :isbn="book.isbn"
         />
-        <!--<v-btn
-            icon
-            @click="showexpand = !showexpand"
-            v-if="book.tip!==''">
-          <v-icon>{{ showexpand ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-        </v-btn>-->
       </v-card-actions>
-      <!--<v-expand-transition>
-        <div v-show="showexpand">
-          <v-divider></v-divider>
-          <v-card-text style="min-height: 80px">
-            {{ book.tip }}
-          </v-card-text>
-        </div>
-      </v-expand-transition>-->
     </v-card>
     <template v-if="mobile">
       <udmobile
@@ -153,12 +139,12 @@ export default {
     }
   },
   mounted() {
-    console.log('mount')
+    // console.log('mount')
     this.udref=this.$refs.ud
     this.dlref=this.$refs.dl
   },
   updated() {
-    console.log('update')
+    // console.log('update')
     this.udref=this.$refs.ud
     this.dlref=this.$refs.dl
   },
