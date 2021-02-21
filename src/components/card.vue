@@ -1,5 +1,5 @@
 <template>
-    <v-container class="mt-md-12 mt-xs-8" style="margin-bottom: 150px">
+    <v-container class="mt-md-12 mt-xs-8" style="margin-bottom: 150px;max-width: 90%!important;" fluid>
       <v-row>
           <bookcard
               v-for="(book,index) in bookdata"
