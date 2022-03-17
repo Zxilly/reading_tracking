@@ -63,7 +63,6 @@ export default {
   },
   methods: {
     saveinfo: function () {
-      //console.log('save')
       this.dialog = false
       updatedialog(
           this.book.isbn, this.bookname, this.author, this.page
@@ -72,7 +71,6 @@ export default {
         this.snackbar.msg = msg
         this.$store.commit('snackbar', this.snackbar)
         this.$bus.$emit('refresh', true)
-        //this.$emit('refresh')
       })
     }
   }

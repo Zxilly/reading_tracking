@@ -82,7 +82,6 @@ export default {
         this.snackbar.msg = msg
         this.$store.commit('snackbar', this.snackbar)
         this.$bus.$emit('refresh', true)
-        //this.$emit('refresh')
       })
     }
   }

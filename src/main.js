@@ -2,13 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import Vuex from 'vuex'
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
+import '@mdi/font/css/materialdesignicons.css'
 
 Vue.use(Vuex)
-
-const isDebug_mode = process.env.NODE_ENV !== 'production'
-Vue.config.debug = isDebug_mode
-Vue.config.devtools = isDebug_mode
-Vue.config.productionTip = isDebug_mode
 
 Vue.prototype.$bus=new Vue()
 
@@ -16,7 +13,14 @@ Vue.prototype.$mobile=function (){
     return document.body.clientWidth<600
 }
 
-Vue.prototype.$snackbar=function (msg,color){
+const mainel = new Vue({
+   el:'#app',
+   vuetify,
+   store,
+   render: h => h(App)
+});
+
+Vue.prototype.$snackbar=function (msg, color){
     mainel.$store.commit('snackbar',{
         'msg':msg,
         "color":color,
@@ -43,9 +47,3 @@ const store = new Vuex.Store({
 })
 
 
- var mainel = new Vue({
-    el:'#app',
-    vuetify,
-    store,
-    render: h => h(App)
-})

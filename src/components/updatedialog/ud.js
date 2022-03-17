@@ -5,8 +5,6 @@ import {apiurl} from '@/config'
 
 
 export function updatedialog(isbn, bookname, author, page) {
-    //eslint-disable-next-line no-debugger
-    //debugger
     if (!isbn) {
         return
     }
