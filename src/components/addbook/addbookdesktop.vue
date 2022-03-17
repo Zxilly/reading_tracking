@@ -59,7 +59,7 @@
 
 <script>
 export default {
-  name: "addbookdesktop",
+  name: "AddBookDesktop",
   data() {
     return {
       dialog: false,

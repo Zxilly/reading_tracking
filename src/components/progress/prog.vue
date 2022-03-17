@@ -96,7 +96,7 @@
 import {sendinfo} from '@/components/progress/progress';
 
 export default {
-  name: "progressmobile",
+  name: "ProgressMobile",
   props: ['progress', 'max_page', 'isbn', 'bookname'],
   data() {
     return {

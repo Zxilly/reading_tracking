@@ -52,40 +52,40 @@
         </v-menu>
       </v-app-bar>
       <template v-if="loginStates&&!isfirst">
-        <card
+        <card-c
             :bookdata="bookdata"
             :username="username"
         />
-        <addbook
+        <add-book
             :isfirst='false'
         />
       </template>
       <template v-else-if="loginStates&&isfirst">
-        <first
+        <first-c
             v-show="isfirstshow"
         />
-        <addbook
+        <add-book
             v-show="isfirstshow"
             :isfirst='true'
             @notfirst="isfirst=false"
         />
       </template>
       <template v-else>
-        <login
+        <login-c
             @login="loginfinish"
         />
       </template>
-      <snackbar/>
+      <snack-bar/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import First from "@/components/first";
-import Addbook from "@/components/addbook";
-import Card from "@/components/card";
-import Login from "@/components/login";
-import Snackbar from "@/components/snackbar";
+import FirstC from "@/components/first";
+import AddBook from "@/components/addbook";
+import CardC from "@/components/card";
+import LoginC from "@/components/login";
+import SnackBar from "@/components/snackbar";
 
 import Cookies from "js-cookie";
 import axios from 'axios';
@@ -170,11 +170,11 @@ export default {
     }
   },
   components: {
-    Addbook,
-    First,
-    Snackbar,
-    Card,
-    Login
+    AddBook,
+    FirstC,
+    SnackBar,
+    CardC,
+    LoginC
   }
 }
 </script>

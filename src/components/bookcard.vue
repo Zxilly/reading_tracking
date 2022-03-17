@@ -90,7 +90,7 @@
           </v-list>
         </v-menu>
         <v-spacer></v-spacer>
-        <prog
+        <progress-mobile
             :bookname="book.title"
             :key="book.progress"
             :progress="book.progress"
@@ -100,18 +100,18 @@
       </v-card-actions>
     </v-card>
     <template v-if="mobile">
-      <udmobile
+      <u-d-mobile
           :book="book"
           ref="ud"
       />
     </template>
     <template v-else>
-      <uddesktop
+      <u-d-desktop
           :book="book"
           ref="ud"
       />
     </template>
-    <delete
+    <delete-c
         ref="dl"
         :isbn="book.isbn"
     />
@@ -121,15 +121,15 @@
 <script>
 import {baseurl} from '@/config'
 
-import Udmobile from '@/components/updatedialog/udmobile'
-import Uddesktop from '@/components/updatedialog/uddesktop'
-import Prog from '@/components/progress/prog'
-import Delete from "@/components/delete";
+import UDMobile from '@/components/updatedialog/udmobile'
+import UDDesktop from '@/components/updatedialog/uddesktop'
+import ProgressMobile from '@/components/progress/prog'
+import DeleteC from "@/components/delete";
 
 
 export default {
-  name: "bookcard",
-  components: {Delete, Prog, Uddesktop, Udmobile},
+  name: "BookCard",
+  components: {DeleteC, ProgressMobile, UDDesktop, UDMobile},
   props: ['username', 'book'],
   data() {
     return {

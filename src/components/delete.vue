@@ -19,7 +19,7 @@ import axios from 'axios'
 import {apiurl} from "@/config";
 
 export default {
-  name: "delete",
+  name: "DeleteC",
   props: ['isbn'],
   data(){
     return{

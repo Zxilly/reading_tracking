@@ -1,6 +1,6 @@
 <template>
   <div v-if="mobile">
-    <addbookmobile
+    <add-book-mobile
         @addbook="addbook"
         @reset="reset=!reset"
         :rules="rules"
@@ -8,7 +8,7 @@
     />
   </div>
   <div v-else>
-    <addbookdesktop
+    <add-book-desktop
         @addbook="addbook"
         @reset="reset=!reset"
         :rules="rules"
@@ -21,12 +21,12 @@
 import axios from 'axios'
 import {apiurl} from '@/config'
 
-import Addbookmobile from "@/components/addbook/addbookmobile";
-import Addbookdesktop from "@/components/addbook/addbookdesktop";
+import AddBookMobile from "@/components/addbook/addbookmobile";
+import AddBookDesktop from "@/components/addbook/addbookdesktop";
 
 export default {
-  name: "addbook",
-  components: {Addbookdesktop, Addbookmobile},
+  name: "AddBook",
+  components: {AddBookDesktop, AddBookMobile},
   props: ['isfirst'],
   data() {
     return {

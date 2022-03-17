@@ -1,7 +1,7 @@
 <template>
     <v-container class="mt-md-12 mt-xs-8" style="margin-bottom: 150px;max-width: 90%!important;" fluid>
       <v-row>
-          <bookcard
+          <book-card
               v-for="(book,index) in bookdata"
               :key="index"
               :username="username"
@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import Bookcard from "@/components/bookcard";
+import BookCard from "@/components/bookcard";
 export default {
-  name: "card",
-  components: {Bookcard},
+  name: "CardC",
+  components: {BookCard},
   props: ['bookdata','username'],
   methods:{
   }

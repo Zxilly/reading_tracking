@@ -22,7 +22,7 @@
 <script>
 
 export default {
-  name: "first",
+  name: "FirstC",
 }
 </script>
 

@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: "loginmobile",
+  name: "LoginMobile",
   data() {
     return {
       dialog: true,

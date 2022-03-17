@@ -1,11 +1,11 @@
 <template>
   <div v-if="mobile">
-    <loginmobile
+    <login-mobile
         @success="login"
     />
   </div>
   <div v-else>
-    <logindesktop
+    <login-desktop
         @success="login"
     />
   </div>
@@ -13,12 +13,12 @@
 
 <script>
 import Cookies from 'js-cookie'
-import Loginmobile from "@/components/login/loginmobile";
-import Logindesktop from "@/components/login/logindesktop";
+import LoginMobile from "@/components/login/loginmobile";
+import LoginDesktop from "@/components/login/logindesktop";
 
 export default {
-  name: "login",
-  components: {Logindesktop, Loginmobile},
+  name: "LoginC",
+  components: {LoginDesktop, LoginMobile},
   computed: {
     mobile: function () {
       return this.$mobile()

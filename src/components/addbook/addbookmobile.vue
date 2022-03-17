@@ -68,7 +68,7 @@
 
 <script>
 export default {
-  name: "addbookmobile",
+  name: "AddBookMobile",
   data() {
     return {
       dialog: false,
@@ -80,14 +80,12 @@ export default {
   props: ['rules','reset'],
   methods: {
     sendinfo: function () {
-      //console.log([this.isbn,this.progress,this.tip])
       if (this.$refs.isbn.validate() && this.$refs.progress.validate()) {
         this.$emit('addbook', [
           this.isbn, this.progress, this.tip
         ]);
         this.dialog = false
         this.$emit('reset')
-        //([this.isbn, this.progress, this.tip] = ['', '', '']);
       }
     }
   }

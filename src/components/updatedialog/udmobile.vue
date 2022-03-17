@@ -52,7 +52,7 @@
 import {updatedialog} from './ud'
 
 export default {
-  name: "udmobile",
+  name: "UDMobile",
   props: ['book'],
   data() {
     return {

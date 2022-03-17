@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: "logindesktop",
+  name: "LoginDesktop",
   data() {
     return {
       dialog: true,

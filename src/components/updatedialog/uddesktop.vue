@@ -42,7 +42,7 @@
 import {updatedialog} from './ud'
 
 export default {
-  name: "uddesktop",
+  name: "UDDesktop",
   props: ['book'],
   data(){
     return{
